@@ -1,0 +1,401 @@
+@import './Colors.scss';
+.account {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    .theme-btn {
+        position: fixed;
+        width: 60px;
+        height: 30px;
+        border-radius: 15px;
+        background-color: transparent;
+        border: 1px solid var(--primary-color);
+        .bullet {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            transition: 0.3s;
+        }
+        &.dark {
+            .bullet {
+                right: 30px;
+            }
+        }
+    }
+    .logo {
+        justify-content: center;
+        background-color: var(--secondary-color);
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            p {
+                font-weight: 700;
+                color: #000;
+            }
+            span {
+                font-weight: 400;
+                color: #B6BCC4;
+            }
+        }
+    }
+    .logIn,
+    .signUp {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .form {
+            .formLabel {
+                color: var(--text-color);
+            }
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            .passwordHolder {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                .showPassword {
+                    cursor: pointer;
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translate(-50%,30%);
+                    color: var(--text-color);
+                }
+            }
+            .formInput {
+                border-radius: 8px;
+                border: 1px solid var(--borders-color);
+                background-color: transparent;
+            }
+            .checkbox {
+                position: relative;
+                .agreement {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                .remeberMe {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                .remeberMeLabel {
+                    position: absolute;
+                    left: 20px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+        .newAccount {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-color);
+        }
+        .createAccount {
+            text-decoration: underline;
+            color: var(--primary-color);
+        }
+    }
+    .logInBtn {
+        margin-top: 20px;
+    }
+    .signUpBtn {
+        margin-top: 20px;
+    }
+    &.dark {
+        .logIn,
+        .signUp {
+            background-color: #000;
+        }
+    }
+}
+@media only screen and (min-width: 992px){
+    .theme-btn {
+        top: 40px;
+        right: 60px;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        width: 50%;
+        h2 {
+            font-size: 64px;
+        }
+    }
+    .logIn,
+    .signUp {
+        width: 50%;
+        gap: 15px;
+        .form {
+            .formLabel {
+                margin-top: 15px;
+            }
+            .formInput {
+                width: 380px;
+                padding: 10px 14px;
+            }
+            .passwordP {
+                width: 380px;
+            }
+            .checkbox {
+                margin-top: 15px;
+                margin-bottom: 25px;
+                width: 380px;
+                height: 25px;
+                .resetPass {
+                    right: 0;
+                    transform: translateY(-50%);
+                    top: 50%;
+                }
+            }
+            .logInBtn {
+                margin-top: 20px;
+                padding: 8px 12px;
+                width: 90px;
+            }
+            .signUpBtn {
+                padding: 8px 12px;
+                width: 160px;
+            }
+        }
+        .newAccount {
+            width: 380px;
+        }
+        .providersLabel {
+            width: 380px;
+        }
+        .providers {
+            width: 380px;
+            .provider {
+                padding: 8px 12px;
+                width: 100px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 992px) and (min-width:768px){
+    .theme-btn {
+        top: 40px;
+        right: 60px;
+    }
+    .logo {
+        background-color: rgba(33, 90, 189, 0.05);
+        display: flex;
+        align-items: center;
+        width: 50%;
+        h2 {
+            font-size: 58px;
+        }
+    }
+    .logIn,
+    .signUp{
+        width: 50%;
+        gap: 15px;
+        .form {
+            .formLabel {
+                margin-top: 20px;
+            }
+            .formInput {
+                width: 340px;
+                padding: 8px 12px;
+            }
+            .passwordP {
+                width: 340px;
+            }
+            .checkbox {
+                margin-top: 15px;
+                margin-bottom: 25px;
+                width: 340px;
+                height: 25px;
+                .resetPass {
+                    right: 0;
+                    transform: translateY(-50%);
+                    top: 50%;
+                }
+            }
+            .logInBtn {
+                width: 90px;
+                padding: 6px 10px;
+            }
+            .signUpBtn {
+                padding: 8px 12px;
+                width: 140px;
+            }
+        }
+        .newAccount {
+            width: 340px;
+        }
+        .providersLabel {
+            width: 340px;
+        }
+        .providers {
+            width: 340px;
+            .provider {
+                padding: 6px 10px;
+                width: 80px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 768px) and (min-width:370px){
+    .theme-btn {
+        bottom: 40px;
+        right: 60px;
+    }
+    .account {
+        flex-direction: column;
+    }
+    .logo {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        display: flex;
+        align-items: center;
+        padding-top: 15vh;
+        width: 1000px;
+        height: 40vh;
+        border-radius: 50%;
+        h2 {
+            font-size: 42px;
+        }
+    }
+    .logIn,
+    .signUp {
+        width: 100%;
+        gap: 15px;
+        .form {
+            .formLabel {
+                margin-top: 15px;
+            }
+            .formInput {
+                width: 325px;
+                padding: 10px 8px;
+            }
+            .passwordP {
+                width: 325px;
+            }
+            .checkbox {
+                margin-top: 15px;
+                margin-bottom: 25px;
+                width: 325px;
+                height: 25px;
+                .resetPass {
+                    right: 0;
+                    transform: translateY(-50%);
+                    top: 50%;
+                }
+            }
+            .logInBtn {
+                width: 90px;
+                padding: 6px 10px;
+            }
+            .signUpBtn {
+                padding: 6px 10px;
+                width: 140px;
+            }
+        }
+        .newAccount {
+            width: 325px;
+        }
+        .providersLabel {
+            width: 325px;
+        }
+        .providers {
+            width: 325px;
+            .provider {
+                padding: 6px 10px;
+                width: 80px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 370px){
+    .account {
+        flex-direction: column;
+    }
+    .theme-btn {
+        bottom: 20px;
+        right: 20px;
+    }
+    .logo {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        display: flex;
+        align-items: center;
+        padding-top: 15vh;
+        width: 600px;
+        height: 40vh;
+        border-radius: 50%;
+        h2 {
+            font-size: 36px;
+        }
+    }
+    .logIn,
+    .signUp {
+        width: 100%;
+        gap: 15px;
+        .form {
+            .formLabel {
+                margin-top: 15px;
+            }
+            .formInput {
+                width: 240px;
+                padding: 8px 8px;
+            }
+            .passwordP {
+                width: 240px;
+            }
+            .checkbox {
+                margin-top: 15px;
+                margin-bottom: 25px;
+                width: 240px;
+                height: 25px;
+                .resetPass {
+                    right: 0;
+                    transform: translateY(-50%);
+                    top: 50%;
+                }
+            }
+            .logInBtn {
+                width: 90px;
+                padding: 4px 8px;
+            }
+            .signUpBtn {
+                padding: 6px 10px;
+                width: 140px;
+            }
+        }
+        .newAccount {
+            width: 240px;
+        }
+        .providersLabel {
+            width: 240px;
+        }
+        .providers {
+            width: 240px;
+            .provider {
+                padding: 4px 8px;
+                width: 60px;
+            }
+        }
+    }
+}
