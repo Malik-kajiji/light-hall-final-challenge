@@ -253,27 +253,30 @@ input {
         gap: 20px;
         li {
             width: 100%;
-            background-color: transparent;
-            border: 1px solid var(--primary-color);
-            border-radius: 8px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 10px;
-            cursor: pointer;
-            color: var(--text-color);
-            span {
-                font-size: 20px;
-            }
-            .icon {
+            a {
+                width: 100%;
+                padding: 0 10px;
                 display: flex;
-                font-size: 24px;
-            }
-            &:hover,
-            &.active {
-                background-color: var(--primary-color);
-                color: var(--hover-text-color);
+                align-items: center;
+                justify-content: space-between;
+                height: 35px;
+                border-radius: 8px;
+                border: 1px solid var(--primary-color);
+                background-color: transparent;
+                cursor: pointer;
+                color: var(--text-color);
+                span {
+                    font-size: 20px;
+                }
+                .icon {
+                    display: flex;
+                    font-size: 24px;
+                }
+                &:hover,
+                &.active {
+                    background-color: var(--primary-color);
+                    color: var(--hover-text-color);
+                }
             }
         }
     }
@@ -316,3 +319,58 @@ input {
     }
 }
 // end sidebar
+
+// add exercise
+.add-exercise {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    background-color: rgba($color: #000000, $alpha: 0.0);
+    backdrop-filter: blur(0.0rem);
+    position: fixed;
+    transform: translateY(-100%);
+    transition:backdrop-filter 0.7s, background-color 0.7s;
+    form {
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        transform: translate(-50%,-100%);
+        background-color: var(--bg-color);
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+        width: 400px;
+        height: fit-content;
+        transition: 0.7s;
+        select {
+            border: 1px solid var(--borders-color);
+            height: 40px;
+            border-radius: 8px;
+            padding: 0 10px;
+            cursor: pointer;
+            option {
+                cursor: pointer;
+            }
+        }
+        img {
+            width: 100%;
+            height: 300px;
+        }
+        button {
+            height: 40px;
+        }
+    }
+    &.active {
+        background-color: rgba($color: #000000, $alpha: 0.3);
+        backdrop-filter: blur(0.2rem);
+        transform: translateY(0%);
+        form {
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+    }
+}
+// add exercise

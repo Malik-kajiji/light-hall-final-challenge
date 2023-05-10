@@ -24,7 +24,8 @@ const Login = () => {
         }else {
             signInWithEmailAndPassword(auth,loginData.email,loginData.password)
             .then((user)=>{
-                dispatch(alertActions.showAlert({msg:'logged in successfully',showen:true,type:'success'}));
+                console.log('good')
+                dispatch(alertActions.showAlert({msg:'logged in successfully',type:'success'}));
             })
             .catch((err)=> {
                 dispatch(alertActions.showAlert({msg:err.message,showen:true,type:'error'}));

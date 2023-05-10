@@ -9,6 +9,7 @@ import Alert from './components/Alert';
 import Home from './pages/Home';
 import Sidebar from './components/Sidebar';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import WorkoutRoutine from './pages/WorkoutRoutine';
 
 function App() {
   const [isLoggedIn,setIsLoggedIn] = useState(false);
@@ -34,6 +35,7 @@ function App() {
         <Sidebar />
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/routine" element={<WorkoutRoutine />} />
         </Routes>
       </Router>
       :
