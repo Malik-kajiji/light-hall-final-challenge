@@ -8,6 +8,7 @@ import { themeActions } from './redux/Theme';
 import Alert from './components/Alert';
 import Home from './pages/Home';
 import Sidebar from './components/Sidebar';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
   const [isLoggedIn,setIsLoggedIn] = useState(false);
@@ -29,7 +30,12 @@ function App() {
     <main className={`App ${theme === 'dark' && 'Dark'}`}>
       <Alert />
       {isLoggedIn?
+      <Router>
         <Sidebar />
+        <Routes>
+            <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
       :
         <Account />
       }
