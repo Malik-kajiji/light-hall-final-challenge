@@ -40,7 +40,6 @@ const WorkoutRoutine = () => {
                     <input type='checkbox' />
                     <label htmlFor="">Chest</label>
                 </div>
-                
             </article>
             <section className='today'>
                 <div className='exercises-holder'>
