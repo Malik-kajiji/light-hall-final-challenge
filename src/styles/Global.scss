@@ -116,17 +116,17 @@ input {
     position: fixed;
     overflow: hidden;
     left: 50%;
-    transform: translateX(-50%);
-    top: 100vh;
+    transform: translate(-50%,-120%);
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    transition:top 0.7s;
+    transition: transform 0.7s;
     &.error {
         background-color: #D63031;
     }
     &.warrning {
-        background-color: #f9ca24;
+        background-color: #f39c12;
     }
     &.success {
         background-color: #00B894;
@@ -137,6 +137,9 @@ input {
         margin-inline: 10px;
         display: flex;
     }
+    &.showen {
+        transform: translate(-50%,50%);
+    }
 }
 @media only screen and (min-width: 1130px){
     .alert {
@@ -145,9 +148,6 @@ input {
         max-width: 800px;
         border-radius: 10px;
         height: 70px;
-        &.showen {
-            top: calc(100vh - 90px);
-        }
     }
 }
 @media only screen and (max-width: 1130px) and (min-width:900px) {
@@ -157,9 +157,6 @@ input {
         max-width: 650px;
         border-radius: 10px;
         height: 70px;
-        &.showen {
-            top: calc(100vh - 90px);
-        }
     }
 }
 @media only screen and (max-width: 900px) and (min-width:480px){
@@ -169,9 +166,6 @@ input {
         max-width: 400px;
         border-radius: 5px;
         height: 50px;
-        &.showen {
-            top: calc(100vh - 70px);
-        }
     }
 }
 @media only screen and (max-width: 480px){
@@ -181,9 +175,144 @@ input {
         max-width: 250px;
         border-radius: 10px;
         height: 40px;
-        &.showen {
-            top: calc(100vh - 60px);
-        }
     }
 }
 // end alert component
+
+// start sidebar
+.sidebar {
+    background-color: var(--secondary-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 320px;
+    box-shadow: 2px 0px 8px #0000003b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px;
+    gap: 40px;
+    .top {
+        width: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 50px;
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            width: fit-content;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 28px;
+            p {
+                font-weight: 700;
+                color: #000;
+            }
+            span {
+                font-weight: 400;
+                color: #B6BCC4;
+            }
+        }
+        .theme-btn {
+            position: relative;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 25px;
+            border-radius: 15px;
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            .bullet {
+                position: absolute;
+                top: 2px;
+                right: 2px;
+                width: 20px;
+                height: 19px;
+                border-radius: 50%;
+                background-color: var(--primary-color);
+                transition: 0.3s;
+            }
+            &.dark {
+                .bullet {
+                    right: 36px;
+                }
+            }
+        }
+    }
+    ul {
+        width: 280px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+        li {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            cursor: pointer;
+            color: var(--text-color);
+            span {
+                font-size: 20px;
+            }
+            .icon {
+                display: flex;
+                font-size: 24px;
+            }
+            &:hover,
+            &.active {
+                background-color: var(--primary-color);
+                color: var(--hover-text-color);
+            }
+        }
+    }
+    .logOut {
+        position: absolute;
+        width: 280px;
+        height: 50px;
+        bottom: 20px;
+        left: 20px;
+        background-color: transparent;
+        border: 1px solid var(--primary-color);
+        border-radius: 25px;
+        color: var(--text-color);
+        .name {
+            position: absolute;
+            top: 3px;
+            font-size: 20px;
+            font-weight: 600;
+            left: 30px;
+        }
+        .email {
+            position: absolute;
+            bottom: 3px;
+            font-size: 14px;
+            font-weight: 400;
+            left: 30px;
+        }
+        .icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            font-size: 24px;
+        }
+        &:hover {
+            background-color: var(--primary-color);
+            color: var(--hover-text-color);
+        }
+    }
+}
+// end sidebar

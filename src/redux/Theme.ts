@@ -7,8 +7,10 @@ export const Theme = createSlice({
         toggleTheme(state,action){
             if(state.mode === 'dark' ){
                 state.mode = 'light'
+                window.localStorage.setItem('theme','light')
             } else {
                 state.mode = 'dark'
+                window.localStorage.setItem('theme','dark')
             }
         },
         changeTheme(state,action){
