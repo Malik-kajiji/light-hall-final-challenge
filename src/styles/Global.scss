@@ -122,6 +122,7 @@ input {
     align-items: center;
     justify-content: space-around;
     transition: transform 0.7s;
+    z-index: 999;
     &.error {
         background-color: #D63031;
     }

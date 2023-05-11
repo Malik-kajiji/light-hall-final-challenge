@@ -55,4 +55,19 @@
             border-radius: 0 8px 8px 0;
         }
     }
+    .current-weight {
+        position: relative;
+        height: 4px;
+        width: 800px;
+        background-color: var(--primary-color);
+        h2 {
+            position: absolute;
+            top: 50%;
+            left: 100px;
+            transform: translateY(-50%);
+            background-color: var(--bg-color);
+            padding: 0 15px;
+            color: var(--text-color);
+        }
+    }
 }

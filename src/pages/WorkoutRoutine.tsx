@@ -1,21 +1,42 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import '../styles/WorkoutRoutine.scss';
-import { IoMdAdd } from 'react-icons/io';
-import { MdDeleteOutline,MdEdit } from 'react-icons/md';
-import AddExecise from '../components/AddExecise';
+import { useDispatch } from 'react-redux';
+import { currentpageActions } from '../redux/CurrentPage';
+import Routine from '../components/Routine';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { auth, db } from '../config/firebaseConfig';
+
 
 const WorkoutRoutine = () => {
-    const [day,setDay] = useState('monday');
-    const [isShowen,setIsShowen] = useState(false)
+    const dispatch = useDispatch();
+    const [loading,setLoading] = useState(true);
+    const [day,setDay] = useState('Monday');
+    const [routine,setRoutine] = useState<any>()
+    useEffect(()=>{
+        dispatch(currentpageActions.setCurrentPage({page:'routine'}));
+        if(auth.currentUser){
+            const ref = doc(db,'workoutRoutines',auth.currentUser.uid)
+            const endSnapshot =  onSnapshot(ref,(res)=>{
+                if(res.exists()){
+                    setRoutine(res.data()?.routine)
+                    setLoading(false)
+                }
+            })
+
+            return () => endSnapshot()
+        }
+    },[])
+    if(loading){
+        return <h2>loading</h2>
+    }
     return (
         <section className='Wokout-routine'>
-            <AddExecise isShowen={isShowen}  setIsShowen={setIsShowen}/>
             <div className='tabs'>
-                <button onClick={()=>setDay('monday')} className={`${day === 'monday' && 'active'}`}>
+                <button onClick={()=>setDay('Monday')} className={`${day === 'Monday' && 'active'}`}>
                     Monday
                 </button>
-                <button onClick={()=>setDay('tuesday')} className={`${day === 'tuesday' && 'active'}`}>
+                <button onClick={()=>setDay('Tuesday')} className={`${day === 'Tuesday' && 'active'}`}>
                     Tuesday
                 </button>
                 <button onClick={()=>setDay('Wednesday')} className={`${day === 'Wednesday' && 'active'}`}>
@@ -34,45 +55,7 @@ const WorkoutRoutine = () => {
                     Sunday
                 </button>
             </div>
-            <article className='targted-muscle-inputs'>
-                <h2 className='targted-muscle-h2'>Targeted muscles </h2>
-                <div className='input'>
-                    <input type='checkbox' />
-                    <label htmlFor="">Chest</label>
-                </div>
-            </article>
-            <section className='today'>
-                <div className='exercises-holder'>
-                    <h2 className='targted-muscle'>exercises</h2>
-                    <span className='add' onClick={()=>setIsShowen(true)}>{IoMdAdd({})}</span>
-                    <article className='exercise'>
-                        <span className='num'>
-                            #1
-                        </span>
-                        <span className='delete'>
-                            {MdDeleteOutline({})}
-                        </span>
-                        <span className='edit'>
-                            {MdEdit({})}
-                        </span>
-                        <ul role='list'>
-                            <li>
-                                bench press
-                            </li>
-                            <li>
-                                3 sets
-                            </li>
-                            <li>
-                                8 to 10 reps
-                            </li>
-                            <li>
-                                3mins rest
-                            </li>
-                        </ul>
-                        <img src="" alt="" />
-                    </article>
-                </div>
-            </section>
+            <Routine routine={routine} day={day}/>
         </section>
     )
 }

@@ -12,11 +12,13 @@ import { signOut } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import { alertActions } from '../redux/AlertController';
 import { useNavigate } from 'react-router-dom';
+
+
 const Sidebar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const theme = useSelector((state:RootState )=> state.theme.mode);
-    const [choosen,setCoosen] = useState('home')
+    const currentPage = useSelector((state:RootState) => state.currentPage.page);
 
     function handleLogOut(){
         signOut(auth)
@@ -43,7 +45,7 @@ const Sidebar = () => {
             </div>
             <ul role='list'>
                 <li>
-                    <Link to={'/'} onClick={()=>setCoosen('home')} className={`${choosen === 'home' && 'active'}`}>
+                    <Link to={'/'}  className={`${currentPage === 'home' && 'active'}`}>
                         <span>
                             Home
                         </span>
@@ -53,7 +55,7 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to={'/routine'} onClick={()=>setCoosen('routine')} className={`${choosen === 'routine' && 'active'}`}>
+                    <Link to={'/routine'} className={`${currentPage === 'routine' && 'active'}`}>
                         <span>
                             Workout routine
                         </span>
@@ -63,7 +65,7 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to={'progress'} onClick={()=>setCoosen('progress')} className={`${choosen === 'progress' && 'active'}`}>
+                    <Link to={'progress'}  className={`${currentPage === 'progress' && 'active'}`}>
                         <span>
                             Progress
                         </span>
@@ -73,7 +75,7 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to={'partners'} onClick={()=>setCoosen('partners')} className={`${choosen === 'partners' && 'active'}`}>
+                    <Link to={'partners'}  className={`${currentPage === 'partners' && 'active'}`}>
                         <span>
                             Partners
                         </span>

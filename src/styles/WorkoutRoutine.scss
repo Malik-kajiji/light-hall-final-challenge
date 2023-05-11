@@ -40,12 +40,87 @@
             }
         }
     }
+    .rest-day {
+        position: relative;
+        border: 1px solid var(--primary-color);
+        border-radius: 0 8px 8px 8px;
+        width: 700px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        h2 {
+            position: absolute;
+            top: 0;
+            left: -1px;
+            transform: translateY(-100%);
+            background-color: var(--primary-color);
+            width: 260px;
+            height: 36px;
+            text-align: center;
+            color: var(--hover-text-color);
+            font-size: 24px;
+            font-weight: 500;
+            border-radius: 8px 0 0 0;
+            &::before {
+                content: '';
+                position: absolute;
+                background-color: var(--primary-color);
+                width: 36px;
+                height: 36px;
+                right: -36px;
+                border-radius: 0 36px 0 0;
+            }
+        }
+        p {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-color);
+            text-transform: uppercase;
+
+        }
+        button {
+            position: relative;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 25px;
+            border-radius: 15px;
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            span {
+                position: absolute;
+                top: 2px;
+                right: 2px;
+                width: 20px;
+                height: 19px;
+                border-radius: 50%;
+                background-color: var(--primary-color);
+                transition: right 0.3s;
+            }
+            &.yes {
+                background-color: var(--primary-color);
+                span {
+                    right: 36px;
+                    background-color: var(--secondary-color);
+                }
+            }
+        }
+    }
+    .save-btn {
+        // position: fixed;
+        // bottom: 40px;
+        // right: 20px;
+        width: 180px;
+        height: 40px;
+    }
     .targted-muscle-inputs {
         position: relative;
         border: 1px solid var(--primary-color);
         border-radius: 0 8px 8px 8px;
         width: 700px;
-        height: 120px;
+        height: 70px;
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
@@ -89,11 +164,11 @@
         }
     }
     .today {
-        min-height: calc(100vh - 380px);
+        min-height: calc(100vh - 510px);
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 100px;
+        gap: 20px;
         justify-content: space-between;
         width: 700px;
         padding-bottom: 80px;

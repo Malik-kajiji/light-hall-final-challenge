@@ -11,6 +11,7 @@ import Sidebar from './components/Sidebar';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import WorkoutRoutine from './pages/WorkoutRoutine';
 import Progress from './pages/Progress';
+import Partners from './pages/Partners';
 
 function App() {
   const [isLoggedIn,setIsLoggedIn] = useState(false);
@@ -29,6 +30,8 @@ function App() {
     dispatch(themeActions.changeTheme({newTheme:window.localStorage.getItem('theme')}));
   },[])
   return (
+    <>
+    
     <main className={`App ${theme === 'dark' && 'Dark'}`}>
       <Alert />
       {isLoggedIn?
@@ -38,12 +41,14 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/routine" element={<WorkoutRoutine />} />
             <Route path="/progress" element={<Progress />} />
+            <Route path="/partners" element={<Partners />} />
         </Routes>
       </Router>
       :
         <Account />
       }
     </main>
+    </>
   );
 }
 
