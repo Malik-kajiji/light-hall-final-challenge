@@ -177,12 +177,12 @@ const Routine = ({day,routine}:propsType) => {
                             ))
                             }
                         </div>
-                    <button className='save-btn P-BTN' onClick={handleSave}>
-                            save
-                        </button>
                     </section>
                 </>
             }
+            <button className='save-btn P-BTN' onClick={handleSave}>
+                save
+            </button>
         </>
     )
 }

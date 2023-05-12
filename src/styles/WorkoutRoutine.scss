@@ -9,7 +9,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 180px;
+    padding: 180px 0;
     gap: 80px;
     .tabs {
         position: absolute;
@@ -171,7 +171,6 @@
         gap: 20px;
         justify-content: space-between;
         width: 700px;
-        padding-bottom: 80px;
         .exercises-holder {
             position: relative;
             border: 1px solid var(--primary-color);

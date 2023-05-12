@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [signUpData,setSignUpData] = useState({name:'',email:'',password:'',confirmPassword:''});
     const [showPassword,setShowPassword] = useState(false);
     const [showConfirmPassword,setShowConfirmPassword] = useState(false);
@@ -44,28 +44,43 @@ const SignUp = () => {
                     try {
                         const res = await createUserWithEmailAndPassword(auth, signUpData.email, signUpData.password);
                         updateProfile(res.user, { displayName: signUpData.name });
-
-
+                        
                         dispatch(alertActions.showAlert({ msg: 'created account successfully', showen: true, type: 'success' }));
                         
                         
                         const ref = doc(db,'allUsers','users');
-                        setDoc(ref,{data:[...allUsers,{username:name,uid:res.user.uid}]});
-
-
-                        const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-                        let newObj: {isRoutineCreated:boolean,routine : any} = {isRoutineCreated:false,routine:{}};
-                        weekday.forEach(e=> {
-                            newObj.routine[e] = {
-                                exercises:[],
-                                isRestDay:false,
-                                targetedMuscles:[]
-                            }
+                        setDoc(ref,{data:[...allUsers,{username:name,uid:res.user.uid}]})
+                        .then(()=>{
+                            const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+                            let newObj: {isRoutineCreated:boolean,routine : any} = {isRoutineCreated:false,routine:{}};
+                            weekday.forEach(e=> {
+                                newObj.routine[e] = {
+                                    exercises:[],
+                                    isRestDay:false,
+                                    targetedMuscles:[]
+                                }
+                            })
+                            const routineRef = doc(db,'workoutRoutines',res.user.uid);
+                            setDoc(routineRef,newObj)
+                            .then(() => {
+                                const progressRef = doc(db,'progress',res.user.uid);
+                                const progressObj = {
+                                    isProgressStarted:false,
+                                    progressHistory:[],
+                                    currentWeight:0
+                                }
+                                setDoc(progressRef,progressObj)
+                                .then(()=>{
+                                    const partnersRef = doc(db,'partners',res.user.uid);
+                                    const partnersObj = {
+                                        added:[],
+                                        requests:[]
+                                    }
+                                    setDoc(partnersRef,partnersObj)
+                                    .then(()=>navigate('/'))
+                                })
+                            });
                         })
-                        const routineRef = doc(db,'workoutRoutines',res.user.uid);
-                        setDoc(routineRef,newObj)
-                        .then(() => navigate('/'));
-
                     } catch (err : any ) {
                         dispatch(alertActions.showAlert({ msg: err.message, showen: true, type: 'error' }));
                     }

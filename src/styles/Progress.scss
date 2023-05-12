@@ -48,11 +48,14 @@
             height: 48px;
             width: 480px;
             border-radius: 0 0 0 8px;
+            background-color: transparent;
+            color: var(--text-color);
         }
         button {
             height: 50px;
             width: 120px;
             border-radius: 0 8px 8px 0;
+            border-right: none;
         }
     }
     .current-weight {
