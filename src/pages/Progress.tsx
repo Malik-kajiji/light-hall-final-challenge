@@ -7,6 +7,7 @@ import { currentpageActions } from '../redux/CurrentPage';
 import { doc, onSnapshot, setDoc } from 'firebase/firestore';
 import { auth, db } from '../config/firebaseConfig';
 import { alertActions } from '../redux/AlertController';
+import Loading from '../components/Loading';
 
 const Progress = () => {
     const dispatch = useDispatch();
@@ -15,7 +16,8 @@ const Progress = () => {
     const [updateInput,setUpdateInput] = useState('');
     const [isProgressStarted,setIsProgressStarted] = useState(false);
     const [currentWeight,setCurrentWeight] = useState(0);
-    const [ weightData,setWeightData ] = useState([]) 
+    const [ weightData,setWeightData ] = useState([]);
+    const [loading,setLoading] = useState(true);
 
     function changeStartInput(e:React.ChangeEvent<HTMLInputElement>):void{
         const lastChar = parseFloat(e.target.value[e.target.value.length-1])
@@ -80,14 +82,18 @@ const Progress = () => {
                     setCurrentWeight(res.data().currentWeight)
                     setWeightData(res.data().progressHistory)
                 }
+                setLoading(false)
             })
 
             return () => cancel()
+        }else {
+            setLoading(false)
         }
     },[])
     useEffect(()=>{
         dispatch(currentpageActions.setCurrentPage({page:'progress'}));
     },[])
+    if(loading) return <Loading />
     return (
         <section className='progress'>
             {isProgressStarted?

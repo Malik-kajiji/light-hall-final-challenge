@@ -6,18 +6,19 @@ import { currentpageActions } from '../redux/CurrentPage';
 import Routine from '../components/Routine';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '../config/firebaseConfig';
+import { useParams } from 'react-router-dom';
 import Loading from '../components/Loading';
 
-
-const WorkoutRoutine = () => {
+const PartnerRoutine = () => {
+    const { uid } = useParams()
     const dispatch = useDispatch();
     const [loading,setLoading] = useState(true);
     const [day,setDay] = useState('Monday');
-    const [routine,setRoutine] = useState<any>()
+    const [routine,setRoutine] = useState<any>();
     useEffect(()=>{
-        dispatch(currentpageActions.setCurrentPage({page:'routine'}));
-        if(auth.currentUser){
-            const ref = doc(db,'workoutRoutines',auth.currentUser.uid)
+        dispatch(currentpageActions.setCurrentPage({page:'partners'}));
+        if(uid){
+            const ref = doc(db,'workoutRoutines',uid)
             const endSnapshot =  onSnapshot(ref,(res)=>{
                 if(res.exists()){
                     setRoutine(res.data()?.routine)
@@ -56,9 +57,9 @@ const WorkoutRoutine = () => {
                     Sunday
                 </button>
             </div>
-            <Routine routine={routine} day={day}/>
+            <Routine routine={routine} day={day} dontAllow={true}/>
         </section>
     )
 }
 
-export default WorkoutRoutine
+export default PartnerRoutine

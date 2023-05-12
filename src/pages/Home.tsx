@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { currentpageActions } from '../redux/CurrentPage';
 import { onAuthStateChanged } from 'firebase/auth';
+import Loading from '../components/Loading';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -30,12 +31,16 @@ const Home = () => {
                         const d = new Date();
                         let day = weekday[d.getDay()];
                         setDayRoutine(res.data().routine[day])
+                        setLoading(false)
                     }                
                 })
+            }else {
+                setLoading(false)
             }
         })
         dispatch(currentpageActions.setCurrentPage({page:'home'}));
     },[])
+    if(loading) return <Loading />
     return (
         <section className='home'>
             <div className='tabs'>
@@ -50,47 +55,54 @@ const Home = () => {
                 <>
                 {page === 'today'?
                     <section className='today'>
-                        <div className='exercises-holder'>
-                            <h2 className='targted-muscle'>
-                                {dayRoutine.targetedMuscles.length === 1 ?
-                                    dayRoutine.targetedMuscles[0]
-                                :
-                                    dayRoutine.targetedMuscles.map((e:any,i:any)=> {
-                                        if(i === dayRoutine.targetedMuscles.length - 1){
-                                            return ` and ${e}`
-                                        }else if(i === 0) {
-                                            return `${e}`
-                                        }else {
-                                            return ` ,${e}`
-                                        }
-                                    })
-                                }
+                        {dayRoutine.exercises.length <= 0 ?
+                            <h2> 
+                                no exercises have been set for today ! 
                             </h2>
-                            {dayRoutine.exercises.map((e:any,i:number)=>(
-                                <article className='exercise' key={i}>
-                                    <span className='num'>
-                                        #{i+1}
-                                    </span>
-                                    <ul role='list'>
-                                        <li>
-                                            {e.name}
-                                        </li>
-                                        <li>
-                                            {e.set} sets
-                                        </li>
-                                        <li>
-                                            {e.repRange} reps
-                                        </li>
-                                        <li>
-                                            {e.rest} rest
-                                        </li>
-                                    </ul>
-                                    <img src={e.gif} alt="" />
-                                </article>
-                            ))
-
-                            }
-                        </div>
+                        :
+                            <>
+                                <div className='exercises-holder'>
+                                    <h2 className='targted-muscle'>
+                                        {dayRoutine.targetedMuscles.length === 1 ?
+                                            dayRoutine.targetedMuscles[0]
+                                        :
+                                            dayRoutine.targetedMuscles.map((e:any,i:any)=> {
+                                                if(i === dayRoutine.targetedMuscles.length - 1){
+                                                    return ` and ${e}`
+                                                }else if(i === 0) {
+                                                    return `${e}`
+                                                }else {
+                                                    return ` ,${e}`
+                                                }
+                                            })
+                                        }
+                                    </h2>
+                                    {dayRoutine.exercises.map((e:any,i:number)=>(
+                                        <article className='exercise' key={i}>
+                                            <span className='num'>
+                                                #{i+1}
+                                            </span>
+                                            <ul role='list'>
+                                                <li>
+                                                    {e.name}
+                                                </li>
+                                                <li>
+                                                    {e.set} sets
+                                                </li>
+                                                <li>
+                                                    {e.repRange} reps
+                                                </li>
+                                                <li>
+                                                    {e.rest} rest
+                                                </li>
+                                            </ul>
+                                            <img src={e.gif} alt="" />
+                                        </article>
+                                    ))
+                                    }
+                                </div>
+                            </>
+                        }
                     </section>
                     :
                     <section className='week'>

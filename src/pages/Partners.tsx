@@ -7,6 +7,7 @@ import { doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore';
 import { auth, db } from '../config/firebaseConfig';
 import { Link } from 'react-router-dom';
 import { alertActions } from '../redux/AlertController';
+import Loading from '../components/Loading';
 
 const Partners = () => {
     const dispatch = useDispatch();
@@ -15,9 +16,18 @@ const Partners = () => {
     const [requests,setRequests] = useState<any>([]);
     const [inputData,setInputData] = useState('');
     const [allUsers,setAllUsers] = useState<any>([]);
+    const [loading,setLoading] = useState(true)
 
     function handleSendRequest(){
-        if(inputData === ''){
+        let isAdded = false;
+        for(let i = 0 ; i< partners.length; i++){
+            if(partners[i].name === inputData){
+                isAdded = true
+            }
+        }
+        if(isAdded){
+            dispatch(alertActions.showAlert({msg:" partner is already added",type:'warrning'}))
+        }else if(inputData === ''){
             dispatch(alertActions.showAlert({msg:"make sure to enter the partner's username",type:'warrning'}))
         }else if(inputData === auth.currentUser?.displayName){
             dispatch(alertActions.showAlert({msg:"you can't add yourself",type:'warrning'}))
@@ -89,8 +99,11 @@ const Partners = () => {
                     setPartners(res.data().added)
                     setRequests(res.data().requests)
                 }
+                setLoading(false)
             })
             return ()=> cancel()
+        }else {
+            setLoading(false)
         }
     },[])
     useEffect(()=>{
@@ -103,6 +116,7 @@ const Partners = () => {
         })
         dispatch(currentpageActions.setCurrentPage({page:'partners'}));
     },[])
+    if(loading) return <Loading />
     return (
         <section className='partners'>
             <div className='tabs'>

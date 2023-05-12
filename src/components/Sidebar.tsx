@@ -87,10 +87,10 @@ const Sidebar = () => {
             </ul>
             <button className='logOut' onClick={handleLogOut}>
                 <p className='name'>
-                    Malik
+                    {auth.currentUser?.displayName}
                 </p>
                 <p className='email'>
-                    malik@gmail.com
+                    {auth.currentUser?.email}
                 </p>
                 <span className='icon'>
                     {FiLogOut({})}

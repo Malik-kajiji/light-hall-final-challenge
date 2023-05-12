@@ -10,10 +10,11 @@ import { auth, db } from '../config/firebaseConfig';
 
 type propsType = {
     day:string,
-    routine:any
+    routine:any,
+    dontAllow?:boolean
 }
 
-const Routine = ({day,routine}:propsType) => {
+const Routine = ({day,routine,dontAllow}:propsType) => {
     const [RestDay,setRestDay] = useState(false);
     const [muscles,setMuscles] = useState<string[]>([]);
     const [allExercises,setAllExercises] = useState<any>([])
@@ -22,15 +23,17 @@ const Routine = ({day,routine}:propsType) => {
 
 
     function handleMuscles(e:React.ChangeEvent<HTMLInputElement>){
-        setMuscles((prev: string[]) => {
-            let newArr = [];
-            if(prev.includes(e.target.name)){
-                newArr = prev.filter(musucle => musucle !== e.target.name)
-            }else {
-                newArr = [...prev,e.target.name]
-            }
-            return newArr
-        })
+        if(!dontAllow){
+            setMuscles((prev: string[]) => {
+                let newArr = [];
+                if(prev.includes(e.target.name)){
+                    newArr = prev.filter(musucle => musucle !== e.target.name)
+                }else {
+                    newArr = [...prev,e.target.name]
+                }
+                return newArr
+            })
+        }
     }
 
     function handleSave(){
@@ -75,19 +78,24 @@ const Routine = ({day,routine}:propsType) => {
 
     return (
         <>
-            <AddExecise muscles={muscles} isShowen={isShowen}  setIsShowen={setIsShowen} setAllExercises={setAllExercises}/>
-            <div className='rest-day'>
-                <h2>
-                    is it a rest day?
-                </h2>
-                <p>
-                    {RestDay? 'yes' : 'no'}
-                </p>
-                <button className={RestDay ? 'yes' : ''} onClick={()=>setRestDay((prev: any) => !prev)}>
-                    <span></span>
-                </button>
-            </div>
-            {!RestDay &&
+            {!dontAllow &&
+                <>
+                    <AddExecise muscles={muscles} isShowen={isShowen}  setIsShowen={setIsShowen} setAllExercises={setAllExercises}/>
+                    <div className='rest-day'>
+                        <h2>
+                            is it a rest day?
+                        </h2>
+                        <p>
+                            {RestDay? 'yes' : 'no'}
+                        </p>
+                        <button className={RestDay ? 'yes' : ''} onClick={()=>setRestDay((prev: any) => !prev)}>
+                            <span></span>
+                        </button>
+                    </div>
+                </>
+            }
+            
+            {!RestDay ?
                 <>
                     <article className='targted-muscle-inputs'>
                         <h2 className='targted-muscle-h2'>Targeted muscles </h2>
@@ -149,15 +157,13 @@ const Routine = ({day,routine}:propsType) => {
                     <section className='today'>
                         <div className='exercises-holder'>
                             <h2 className='targted-muscle'>exercises</h2>
-                            <span className='add' onClick={handleAdd}>{IoMdAdd({})}</span>
+                            {!dontAllow && <span className='add' onClick={handleAdd}>{IoMdAdd({})}</span>}
                             {allExercises.map((e:any,i:number)=>(
                                 <article className='exercise' key={i}>
                                     <span className='num'>
                                         #{i+1}
                                     </span>
-                                    <span className='delete' onClick={()=>handleDelete(i)}>
-                                        {MdDeleteOutline({})}
-                                    </span>
+                                    {!dontAllow && <span className='delete' onClick={()=>handleDelete(i)}>{MdDeleteOutline({})}</span>}
                                     <ul role='list'>
                                         <li>
                                             {e.name}
@@ -179,10 +185,14 @@ const Routine = ({day,routine}:propsType) => {
                         </div>
                     </section>
                 </>
+                :
+                <h2>rest day</h2>
             }
+            {!dontAllow &&
             <button className='save-btn P-BTN' onClick={handleSave}>
                 save
             </button>
+            }
         </>
     )
 }
